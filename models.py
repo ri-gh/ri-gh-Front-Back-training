@@ -1,5 +1,9 @@
 from typing import Optional
+import os
+from dotenv import load_dotenv
 from sqlmodel import Field, SQLModel, create_engine, Session, select
+
+load_dotenv()
 
 
 class UserAccount(SQLModel, table=True):
@@ -11,7 +15,7 @@ class UserAccount(SQLModel, table=True):
 
 
 # on crée la Table dans la BDD 'andv'
-engine = create_engine("postgresql://postgres:ANDV-93$rg@localhost:5432/andv")
+engine = create_engine(os.environ['DATABASE_URL'], pool_pre_ping=True)
 SQLModel.metadata.create_all(engine)
 
 if __name__ == "__main__":

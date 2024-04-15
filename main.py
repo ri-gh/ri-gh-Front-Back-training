@@ -1,13 +1,17 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
 from starlette import status
 from sqlmodel import Session, select
 from models import UserAccount, engine
 import re
 
+load_dotenv()
+
 app = FastAPI()
 
-origins = ["http://localhost:8080", "http://127.0.0.1:8080"]
+origins = [os.environ['FRONTEND_URL1'], os.environ['FRONTEND_URL2']]
 
 app.add_middleware(
     CORSMiddleware,
